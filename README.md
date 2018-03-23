@@ -109,6 +109,13 @@ in addition to the built-in syslinux files:
       -v /path/to/your/bootfiles:/tftpboot/site:ro \
       jumanjiman/tftp-hpa
 
+Local example (need vmlinuz/initrd previously generated)
+
+    docker run -d --name tftp-hpa \
+        -v /srv/tftp-docker/pxelinux.cfg/:/tftpboot/pxelinux.cfg:ro -v \
+        /srv/tftp-docker/init:/tftpboot/init:ro \
+        -p 69:69/udp \
+        lnlsdig/tftp-hpa
 
 ### Use systemd for automatic startup
 
