@@ -13,7 +13,8 @@ ARG APP_VERSION
 #
 # NOTE: If you bump the syslinux version here,
 #       please also update the README.md.
-RUN apk add --no-cache --virtual sl_plus_deps syslinux=${APP_VERSION} && \
+RUN echo "nameserver 10.0.0.71" > /etc/resolv.conf && \
+    apk add --no-cache --virtual sl_plus_deps syslinux=${APP_VERSION} && \
     cp -r /usr/share/syslinux /tftpboot && \
     find /tftpboot -type f -exec chmod 0444 {} + && \
     apk del sl_plus_deps
@@ -28,7 +29,8 @@ COPY mapfile /tftpboot/
 VOLUME /tftpboot
 
 # http://forum.alpinelinux.org/apk/main/x86_64/tftp-hpa
-RUN apk add --no-cache tftp-hpa
+RUN echo "nameserver 10.0.0.71" > /etc/resolv.conf && \
+    apk add --no-cache tftp-hpa
 
 EXPOSE 69/udp
 
