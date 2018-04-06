@@ -13,7 +13,7 @@ ARG APP_VERSION=6.04_pre1-r1
 #
 # NOTE: If you bump the syslinux version here,
 #       please also update the README.md.
-RUN echo "nameserver 10.0.0.71" > /etc/resolv.conf && \
+RUN echo "nameserver 10.0.0.71" >> /etc/resolv.conf && \
     apk add --no-cache --virtual sl_plus_deps syslinux=${APP_VERSION} && \
     cp -r /usr/share/syslinux /tftpboot && \
     find /tftpboot -type f -exec chmod 0444 {} + && \
@@ -29,7 +29,7 @@ COPY mapfile /tftpboot/
 VOLUME /tftpboot
 
 # http://forum.alpinelinux.org/apk/main/x86_64/tftp-hpa
-RUN echo "nameserver 10.0.0.71" > /etc/resolv.conf && \
+RUN echo "nameserver 10.0.0.71" >> /etc/resolv.conf && \
     apk add --no-cache tftp-hpa
 
 EXPOSE 69/udp
